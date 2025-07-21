@@ -1,29 +1,29 @@
 const questions = [
   {
-    question: "Who was the first president of kenya",
+    question: "Who was the first president of kenya?",
     answers: [
-      { answer: "Uhuru Kenyata", correct: "false" },
-      { answer: "Mwai Kibaki", correct: "false" },
-      { answer: "Jomo Kenyata", correct: "true" },
-      { answer: "William Ruto", correct: "false" },
+      { options: "Uhuru Kenyata", correct: "false" },
+      { options: "Mwai Kibaki", correct: "false" },
+      { options: "Jomo Kenyata", correct: "true" },
+      { options: "William Ruto", correct: "false" },
     ],
   },
   {
-    question: "What is the capital city of Kenya",
+    question: "What is the capital city of Kenya?",
     answers: [
-      { answer: "Dondoma", correct: "false" },
-      { answer: "Nairobi", correct: "true" },
-      { answer: "Adis Ababa", correct: "false" },
-      { answer: "Mogadishu", correct: "false" },
+      { options: "Dondoma", correct: "false" },
+      { options: "Nairobi", correct: "true" },
+      { options: "Adis Ababa", correct: "false" },
+      { options: "Mogadishu", correct: "false" },
     ],
   },
   {
-    question: "When did kenya gain its independence and became a republic",
+    question: "When did kenya gain its independence and became a republic?",
     answers: [
-      { answer: "1963", correct: "true" },
-      { answer: "1956", correct: "false" },
-      { answer: "1972", correct: "false" },
-      { answer: "1985", correct: "false" },
+      { options: "1963", correct: "true" },
+      { options: "1956", correct: "false" },
+      { options: "1972", correct: "false" },
+      { options: "1985", correct: "false" },
     ],
   },
   {
@@ -31,29 +31,66 @@ const questions = [
       "The following statements are true about Kenya. Which one is not?",
     answers: [
       {
-        answer: "Mt. Kenya is located in central region of Kenya",
+        options: "Mt. Kenya is located in central region of Kenya",
         correct: "false",
       },
       {
-        answer:
+        options:
           "Mombasa serves as a gateway to kenya and EastAfrica through its port",
         correct: "false",
       },
-      { answer: "Lake Victorory is a fresh water lake", correct: "false" },
+      { options: "Lake Victorory is a fresh water lake", correct: "false" },
       {
-        answer: "River Nile drains its water into Lake Victoria",
+        options: "River Nile drains its water into Lake Victoria",
         correct: "true",
       },
     ],
   },
   {
     question:
-      "What is the name of the largest ethnic group by population in Kenya",
+      "What is the name of the largest ethnic group by population in Kenya?",
     answers: [
-      { answer: "Kalenjin", correct: "false" },
-      { answer: "Luo", correct: "false" },
-      { answer: "Kikuyu", correct: "true" },
-      { answer: "Minji Kenda", correct: "false" },
+      { options: "Kalenjin", correct: "false" },
+      { options: "Luo", correct: "false" },
+      { options: "Kikuyu", correct: "true" },
+      { options: "Minji Kenda", correct: "false" },
     ],
   },
 ];
+
+const questionElement = document.querySelector("#question");
+const answerButtons = document.querySelector(".answer-buttons");
+const nextBtn = document.querySelector(".next-btn");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const startQuiz = () => {
+  currentQuestionIndex = 0;
+  score = 0;
+  nextBtn.innerHTML = "Next";
+  showQuestion();
+};
+
+const showQuestion = () => {
+  resetState();
+  let currentQuestion = questions[currentQuestionIndex];
+  let questionNo = currentQuestionIndex + 1;
+  questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+  currentQuestion.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.innerHTML = answer.options;
+    button.classList.add("answers");
+    answerButtons.appendChild(button);
+  });
+};
+
+const resetState = () => {
+  nextBtn.style.display = "none";
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+};
+
+startQuiz();

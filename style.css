@@ -36,11 +36,11 @@ body {
   font-weight: 500;
   padding: 10px;
 }
-.answer-wrapper {
+.answer-buttons {
   display: flex;
   flex-flow: column nowrap;
 }
-.answer-wrapper button {
+.answer-buttons button {
   margin: 5px 10px;
   padding: 7px;
   text-align: left;
@@ -51,12 +51,12 @@ body {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-.answer-wrapper button:hover {
+.answer-buttons button:hover {
   background-color: #222;
   color: #f8f8f8;
 }
 
-.app-wrapper .submit {
+.app-wrapper .next-btn {
   display: none;
   margin: 10px auto;
   width: 150px;
