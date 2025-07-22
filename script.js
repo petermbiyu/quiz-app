@@ -74,15 +74,27 @@ const startQuiz = () => {
 
 const showQuestion = () => {
   resetState();
+
+  //paste the question in the html
   let currentQuestion = questions[currentQuestionIndex];
   let questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+  //create buttons and paste the list of answers from the above array
 
   currentQuestion.answers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerHTML = answer.options;
     button.classList.add("answers");
     answerButtons.appendChild(button);
+
+    //add the dataset-correct to the answers with true or false value
+
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    // listen to an event on the button
+    button.addEventListener("click", selectedAnswer);
   });
 };
 
@@ -93,4 +105,53 @@ const resetState = () => {
   }
 };
 
+//select the element that trigger the event and use the dataset to apply class based on the value of the dataset
+//assign a differnt color to the button
+
+const selectedAnswer = (e) => {
+  const selectedBtn = e.target;
+  const isCorrect = selectedBtn.dataset.correct === "true";
+
+  if (isCorrect) {
+    selectedBtn.classList.add("correct");
+    score++;
+  } else {
+    selectedBtn.classList.add("incorrect");
+  }
+
+  // show the correct answer and disable selection
+
+  Array.from(answerButtons.children).forEach((button) => {
+    if (button.dataset.correct === "true") {
+      button.classList.add("correct");
+    }
+    button.disabled = "true";
+  });
+  nextBtn.style.display = "block";
+};
+//handle the next button functionality
+
+const showScore = () => {
+  resetState();
+  questionElement.innerHTML = `Your Score is ${score} out of ${questions.length}!`;
+  nextBtn.innerHTML = "Play again";
+  nextBtn.style.display = "block";
+};
+
+const handleNextBtn = () => {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showScore();
+  }
+};
+// initializer
+nextBtn.addEventListener("click", () => {
+  if (currentQuestionIndex < questions.length) {
+    handleNextBtn();
+  } else {
+    startQuiz();
+  }
+});
 startQuiz();
