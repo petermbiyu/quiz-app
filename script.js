@@ -18,6 +18,14 @@ const questions = [
     ],
   },
   {
+    question:
+      "True or False! Kenya is the most developed country in East Africa.",
+    answers: [
+      { options: "True", correct: "true" },
+      { options: "False", correct: "false" },
+    ],
+  },
+  {
     question: "When did kenya gain its independence and became a republic?",
     answers: [
       { options: "1963", correct: "true" },
